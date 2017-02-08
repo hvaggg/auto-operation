@@ -132,12 +132,12 @@
 				};
 				this.listLoading = true;
 				NProgress.start();
-				getUserListPage(para).then((res) => {
-					this.total = res.data.total;
-					this.users = res.data.users;
-					this.listLoading = false;
-					NProgress.done();
-				});
+				// getUserListPage(para).then((res) => {
+				// 	this.total = res.data.total;
+				// 	this.users = res.data.users;
+				// 	this.listLoading = false;
+				// 	NProgress.done();
+				// });
 			},
 			//删除
 			handleDel: function (row) {

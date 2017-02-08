@@ -1,6 +1,6 @@
 <template>
 	<el-row class="panel">
-		<!--标题-->
+		<!--头部-->
 		<el-col :span="24" class="panel-top">
 			<el-col :span="20" class="top-logo">
 				<i class="fa fa-ship" aria-hidden="true"></i> <span>巡航舰</span>
@@ -15,50 +15,55 @@
 				</el-dropdown>
 			</el-col>
 		</el-col>
-		<!--标题-->
+		<!--头部-->
+		<el-col :span="24">
+			<!--主菜单-->
+			<el-col :span="2" class="main-menus">
+				<el-menu default-active="2" class="el-menu-vertical-demo" style="width:100%">
+					<div class="main-menus-collapse"><i class="fa fa-bars"></i></div>
+					<el-menu-item index="2"><i class="fa fa-line-chart"></i>运维&监控</el-menu-item>
+				</el-menu>
+			</el-col> 
+			<!--主菜单-->
 
-		<!--主菜单-->
-		<section class="main-menus">
-			<el-menu default-active="2" class="el-menu-vertical-demo" style="width:140px;">
-				<div class="main-menus-collapse"><i class="fa fa-bars"></i></div>
-				<el-menu-item index="2"><i class="fa fa-line-chart"></i>运维&监控</el-menu-item>
-			</el-menu>
-		</section>
-		<!--主菜单-->
-
-		<!--内容-->
-		<el-col :span="24" class="panel-center">
-			<section class="sub-menus">
-				<el-menu :default-active="$route.path" class="" @open="handleopen" @close="handleclose" @select="handleselect"
-					unique-opened router>
-					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
-						<el-submenu :index="index+''" v-if="!item.leaf">
-							<template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
-							<el-menu-item v-for="child in item.children" :index="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
-						</el-submenu>
-						<el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
-					</template>
-					</el-menu>
-			</section>
-			<section class="panel-c-c">
-				<div class="grid-content bg-purple-light">
-					<el-col :span="24" style="margin-bottom:15px;">
-						<strong style="width:200px;float:left;color: #475669;">{{$route.name}}</strong>
-						<el-breadcrumb separator="/" style="float:right;">
-							<el-breadcrumb-item v-for="item in $route.matched">
-								{{ item.name }}
-							</el-breadcrumb-item>
-						</el-breadcrumb>
-					</el-col>
-					<el-col :span="24" style="background-color:#fff;box-sizing: border-box;">
-						<!--<transition name="fade">-->
-						<router-view></router-view>
-						<!--</transition>-->
-					</el-col>
-				</div>
-			</section>
+			<!--内容-->
+			<el-col :span="22" class="panel-center" :style="{height:mainWidth}">
+				<!--二级菜单-->
+				<section class="sub-menus">
+					<el-menu :default-active="$route.path" class="" @open="handleopen" @close="handleclose" @select="handleselect" unique-opened
+						router>
+						<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
+							<el-submenu :index="index+''" v-if="!item.leaf">
+								<template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
+								<el-menu-item v-for="child in item.children" :index="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
+							</el-submenu>
+							<el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
+						</template>
+						</el-menu>
+				</section>
+				<!--二级菜单-->
+				<!--主内容模板-->
+				<section class="panel-c-c">
+					<div class="grid-content bg-purple-light">
+						<el-col :span="24" style="margin-bottom:15px;">
+							<strong style="width:200px;float:left;color: #475669;">{{$route.name}}</strong>
+							<el-breadcrumb separator="/" style="float:right;">
+								<el-breadcrumb-item v-for="item in $route.matched">
+									{{ item.name }}
+								</el-breadcrumb-item>
+							</el-breadcrumb>
+						</el-col>
+						<el-col :span="24" style="background-color:#fff;box-sizing: border-box;">
+							<!--<transition name="fade">-->
+							<router-view></router-view>
+							<!--</transition>-->
+						</el-col>
+					</div>
+				</section>
+				<!--主内容模板-->
+			</el-col>
+			<!--内容-->
 		</el-col>
-		<!--内容-->
 	</el-row>
 </template>
 
@@ -68,6 +73,7 @@
 			return {
 				sysUserName: '',
 				sysUserAvatar: '',
+				mainWidth:(document.body.clientHeight-60)+'px',
 				form: {
 					name: '',
 					region: '',
@@ -116,10 +122,12 @@
 			}
 		}
 	}
-
 </script>
 
 <style scoped>
+	html,body{
+		height:100%;
+	}
 	.fade-enter-active,
 	.fade-leave-active {
 		transition: opacity .5s
@@ -138,8 +146,8 @@
 	}
 	
 	.panel-top {
-		height: 50px;
-		line-height: 50px;
+		height: 60px;
+		line-height: 60px;
 		background: #09C;
 		color: #fff;
 	}
@@ -162,42 +170,47 @@
 		padding-left: 15px;
 	}
 	
-	.main-menus{
-		position: absolute;
+	.main-menus {
+		/*position: absolute;*/
 		background: #324057;
-		top: 50px;
+		top: 60px;
 		z-index: 999;
 		bottom: 0;
 	}
-	.main-menus li{
+	
+	.main-menus li {
 		padding-left: 20px;
-    	color: #fff;
-    	background: #09C;
+		color: #fff;
+		background: #09C;
 	}
-	.main-menus .main-menus-collapse{
-		width:100%;
-		padding:4px 0px;
+	
+	.main-menus .main-menus-collapse {
+		height: 20px;
+		line-height: 20px;
+		width: 100%;
+		padding: 4px 0px;
 		background: #324057;
 		color: #fff;
 		text-align: center;
 	}
-
-	.sub-menus{
-		width:200px;
+	
+	.sub-menus {
+		width: 200px;
 		height: 100%;
-    	background: #f1f2f3;
+		background: #f1f2f3;
 		position: absolute;
-		left:0px;
+		left: 0px;
 		top: 0px;
 		bottom: 0px;
 	}
-
+	
 	.panel-center {
 		background: #fff;
-		position: absolute;
-		left:140px;
-		top: 50px;
-		bottom: 0px;
+		position: relative;
+		min-height: 600px;
+		/*left:140px;
+		top: 60px;
+		bottom: 0px;*/
 		overflow: hidden;
 	}
 	

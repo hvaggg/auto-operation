@@ -8,6 +8,8 @@ import NProgress from 'nprogress'//页面顶部进度条
 import 'nprogress/nprogress.css'
 import routes from './routes'
 
+import './styles/index.less';
+
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 

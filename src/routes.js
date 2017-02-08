@@ -1,5 +1,6 @@
 import NotFound from './pages/404.vue'
 import Home from './pages/Home.vue'
+import Index from './pages/index/index.vue';
 import Table from './pages/nav1/Table.vue'
 import Form from './pages/nav1/Form.vue'
 import user from './pages/nav1/user.vue'
@@ -17,7 +18,7 @@ let routes = [
         iconCls: '',
         leaf: true,//只有一个节点
         children: [
-            { path: '/page6', component: Home, name: '首页' }
+            { path: '/index', component: Index, name: '首页' }
         ]
     },{
         path: '/',
